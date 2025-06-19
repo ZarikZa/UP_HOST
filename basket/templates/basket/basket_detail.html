@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title_name %}
+Корзина
+{% endblock %}
+
+{% block content %}
+<div class="cart-section">
+  <h2>Ваша корзина</h2>
+
+  {% if basket %}
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Изображение</th>
+          <th>Товар</th>
+          <th>Количество</th>
+          <th>Цена за штуку</th>
+          <th>Цена за всё</th>
+          <th>Действие</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in basket %}
+          {% with item.product as product %}
+          <tr>
+            <td>
+              {% if product.photo %}
+                <img src="{{ product.photo.url }}" class="cart-item-image" alt="{{ product.name }}">
+              {% else %}
+                <span class="no-image">Нет фото</span>
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'productss_detail_view' product.pk %}">{{ product.name }}</a>
+            </td>
+            <td>
+              <div class="quantity-control">
+                <form method="post" action="{% url 'basket_decrease' product.pk %}"  style="display: inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="quantity-btn">-</button>
+                </form>
+                <span class="quantity">{{ item.count }} шт.</span>
+                <form action="{% url 'basket_increase' product.pk %}" method="post" style="display: inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="quantity-btn">+</button>
+                </form>
+              </div>
+            </td>
+            <td>
+              {{ item.price }} руб.
+            </td>
+            <td>
+              {{ item.total_price }} руб.
+            </td>
+            <td>
+              <a href="{% url 'basket_remove' product.pk %}" class="btn-remove">Удалить</a>
+            </td>
+          </tr>
+          {% endwith %}
+        {% endfor %}
+        <tr class="cart-total">
+          <td colspan="2">Всего:</td>
+          <td>{{ basket.get_total_quantity }} шт</td>
+          <td colspan="2">{{ basket.get_total_price }} руб.</td>
+          <td><a href="{% url 'basket_clear' %}" class="btn-clear">Очистить</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="cart-actions">
+      <a href="{% url 'products_view' %}" class="btn-shop">Назад в каталог</a>
+      {% if basket|length > 0 %}
+        <a href="{% url 'open_order' %}" class="btn-buy">Купить</a>
+      {% endif %}
+    </div>
+  {% else %}
+    <p>Похоже, вы ещё ничего не добавили. Начните с выбора товаров в каталоге.</p>
+    <a href="{% url 'products_view' %}" class="btn-shop">Перейти в каталог</a>
+  {% endif %}
+</div>
+
+{% endblock %}

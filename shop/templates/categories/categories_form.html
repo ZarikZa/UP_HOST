@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+{% if form.instance.pk %}Редактировать позицию {% else %} Добавить позицию {% endif %}
+{% endblock %}
+ {% block style %}
+       {% include '_inc/styles_for_others.html' %}
+ {% endblock %}
+{% block header %}
+{% endblock %}
+{% block content %}
+    {% if user.is_authenticated and user.is_staff %}
+    <div class="form-container">
+        <h1>{% if form.instance.pk %}Редактировать позицию {% else %} Добавить позицию {% endif %}</h1>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit">Сохранить</button>
+            <a class="nav-btn" href="{% url 'categories_list_view' %}">Назад</a>
+
+        </form>
+    </div>
+     {% block footer %}
+      {% endblock %}
+      {% else %}
+        <h1>Это страницы админа</h1>
+    {% endif %}
+{% endblock %}

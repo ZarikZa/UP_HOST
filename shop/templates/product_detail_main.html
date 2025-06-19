@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+{{ productss.name }}
+{% endblock %}
+
+{% block content %}
+<div class="cart-section" style="max-width: 800px; margin: 40px auto;">
+  <h2>{{ productss.name }}</h2>
+
+  <div class="product-detail-card" style="background-color: #fcf8ed; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden;">
+    {% if productss.photo %}
+      <img src="{{ productss.photo.url }}" alt="{{ productss.name }}" class="card-img-top" style="width: 100%; height: 400px; object-fit: cover;">
+    {% else %}
+      <div class="d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 400px;">
+        <span class="text-muted">Нет изображения</span>
+      </div>
+    {% endif %}
+
+    <div class="product-card-body" style="padding: 25px;">
+      <p><strong>Описание:</strong> {{ productss.disctiption }}</p>
+      <p><strong>Цена:</strong> {{ productss.price }} руб.</p>
+      <p><strong>Категория:</strong> {{ productss.category }}</p>
+      <p><strong>Страна производства:</strong> {{ productss.country }}</p>
+      <p><strong>Бренд:</strong> {{ productss.brand }}</p>
+
+      {% if request.user.is_authenticated %}
+        <form method="post" action="{% url 'basket_add' productss.pk %}" class="mt-4">
+          {% csrf_token %}
+          {{ form_basket }}
+          <button type="submit" class="btn-buy">Добавить в корзину</button>
+        </form>
+      {% else %}
+        <p class="mt-4"><a href="{% url 'login_user' %}?next={{ request.path }}" class="btn-main">Войдите, чтобы добавить в корзину</a></p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mt-4 text-center">
+    <a href="{% url 'products_view' %}" class="btn-shop">← Назад в каталог</a>
+  </div>
+</div>
+{% endblock %}

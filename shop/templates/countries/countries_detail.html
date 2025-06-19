@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+{{ countries.country }}
+{% endblock %}
+ {% block style %}
+       {% include '_inc/styles_for_others.html' %}
+ {% endblock %}
+{% block header %}
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated and user.is_staff %}
+    <div class="card">
+        <h1>{{ countries.country }}</h1>
+        <a class="back-link" href="{% url 'countries_list_view' %}">← Назад к списку</a>
+    </div>
+    {% block footer %}
+      {% endblock %}
+      {% else %}
+        <h1>Это страницы админа</h1>
+    {% endif %}
+{% endblock %}

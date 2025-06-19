@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title_name %}
+Создание заказа
+{% endblock %}
+
+{% block content %}
+
+<div class="form-container" style="max-width: 600px;">
+    <h1 class="mb-4">Создание заказа</h1>
+    <form action="{% url 'basket_buy' %}" method="post" novalidate>
+        {% csrf_token %}
+        {{ form_order.as_p }}
+        <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+    </form>
+    <a href="{% url 'basket_detail' %}" class="btn-shop">Обратно к корзине</a>
+</div>
+
+{% endblock %}

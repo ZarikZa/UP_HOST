@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+Бренды
+{% endblock %}
+{% block style %}
+    {% include '_inc/styles_list.html' %}
+{% endblock %}
+  {% block header %}
+      {% include '_inc/_header_list.html' %}
+  {% endblock %}
+{% block content %}
+{% if user.is_authenticated and user.is_staff %}
+    <div class="content">
+        <h1>Бренды</h1>
+
+        <div style="text-align: center;">
+            <a class="add-btn" href="{% url 'brands_create_view' %}">Добавить новый бренд</a>
+        </div>
+
+        <ul class="clothes-list">
+            {% for position in brands %}
+                <li class="clothes-item">
+                    <div class="clothes-item-title">{{ position.name }}</div>
+                    <a href="{% url 'brands_detail_view' position.pk %}">Подробнее</a>
+                    <a href="{% url 'brands_update_view' position.pk %}">Редактировать</a>
+                    <a href="{% url 'brands_delete_view' position.pk %}">Удалить</a>
+                </li>
+            {% empty %}
+                <li style="color: #fefefe; font-size: 1.2em;">Пока нет добавленных позиций.</li>
+            {% endfor %}
+        </ul>
+    </div>
+     {% block footer %}
+     {% endblock %}
+      {% else %}
+        <h1>Это страницы админа</h1>
+    {% endif %}
+{% endblock %}

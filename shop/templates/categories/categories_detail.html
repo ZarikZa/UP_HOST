@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+{{ categories.name }}
+{% endblock %}
+ {% block style %}
+       {% include '_inc/styles_for_others.html' %}
+ {% endblock %}
+{% block header %}
+{% endblock %}
+{% block content %}
+    {% if user.is_authenticated and user.is_staff %}
+    <div class="card">
+         {% if categories.photo %}
+             <img src="{{ categories.photo.url }}" alt="{{ categories.name }}" class="category-image">
+         {% else %}
+             <div class="category-image" style="background-color: #fcf8ed20; display: flex; align-items: center; justify-content: center;">
+                 <span>Нет изображения</span>
+             </div>
+         {% endif %}
+        <h1>{{ categories.name }}</h1>
+        <h2>{{ categories.disctiption }}</h2>
+        <a class="back-link" href="{% url 'categories_list_view' %}">← Назад к списку</a>
+    </div>
+     {% block footer %}
+      {% endblock %}
+      {% else %}
+        <h1>Это страницы админа</h1>
+    {% endif %}
+{% endblock %}

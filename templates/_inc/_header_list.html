@@ -1,0 +1,14 @@
+{% load static %}
+{% if user.is_authenticated and user.is_staff %}
+  <header>
+        <div class="logo">Лого магазина</div>
+        <div class="nav-buttons">
+            <a class="nav-btn" href="{% url 'brands_list_view' %}">Бренды</a>
+            <a class="nav-btn" href="{% url 'productss_list_view' %}">Товары</a>
+            <a class="nav-btn" href="{% url 'countries_list_view' %}">Страны</a>
+            <a class="nav-btn" href="{% url 'categories_list_view' %}">Категории</a>
+            <a class="nav-btn" href="{% url 'wishlist_list_view' %}">Избранное</a>
+            <a class="nav-btn" href="{% url 'first_view' %}">Вернуться на главную</a>
+        </div>
+    </header>
+{% endif %}

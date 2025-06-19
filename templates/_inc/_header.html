@@ -1,0 +1,33 @@
+{% load static %}
+<header>
+      <h1>OVETA</h1>
+  <nav>
+    <ul>
+      <li><a href="{% url 'first_view' %}">Главная</a></li>
+      <li>
+        <a href="{% url 'second_view' %}">О компании</a>
+        <ul>
+          <li><a href="{% url 'contacts_view' %}">Контакты</a></li>
+          <li><a href="{% url 'location_view' %}">Как нас найти</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'products_view' %}">Товары</a>
+        <ul>
+          <li><a href="{% url 'categories_view' %}">Категории</a></li>
+          <li><a href="{% url 'products_view' %}">Все товары</a></li>
+        </ul>
+      </li>
+      <li><a href="{% url 'basket_detail' %}">Корзина</a></li>
+        {% if request.user.is_authenticated %}
+          <li><a href="{% url 'logout_user' %}">Выйти</a></li>
+        {% else %}
+            <a href="{% url 'login_user' %}">Авторизация</a>
+            <li><a href="{% url 'registration_user' %}">Зарегестрироваться</a></li>
+        {% endif %}
+        {% if user.is_authenticated and user.is_staff %}
+            <li><a href="{% url 'brands_list_view' %}">Администратор</a></li>
+        {% endif %}
+    </ul>
+  </nav>
+</header>

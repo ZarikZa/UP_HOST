@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+Все товары
+{% endblock %}
+
+{% block content %}
+  <h2>Категории товаров</h2>
+
+  <div class="category-cards">
+      {% for item in categories %}
+        <a href="{% url 'categories_sort_view' item.pk%}" class="category-card">
+          <img src="{{ item.photo.url }} " alt="{{item.name}}">
+          <h3>{{item.name}}</h3>
+        </a>
+      {% endfor %}
+  </div>
+
+{% endblock %}

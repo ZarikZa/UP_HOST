@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+Страны
+{% endblock %}
+{% block style %}
+    {% include '_inc/styles_list.html' %}
+{% endblock %}
+  {% block header %}
+      {% include '_inc/_header_list.html' %}
+  {% endblock %}
+{% block content %}
+{% if user.is_authenticated and user.is_staff %}
+    <h1>Страны</h1>
+
+    <div style="text-align: center;">
+        <a class="add-btn" href="{% url 'countries_create_view' %}">Добавить новую страну</a>
+    </div>
+
+    <ul class="clothes-list">
+        {% for position in countries %}
+            <li class="clothes-item">
+                <div class="clothes-item-title">{{ position.country }}</div>
+                <div class="actions">
+                    <a href="{% url 'countries_detail_view' position.pk %}">Подробнее</a>
+                    <a href="{% url 'countries_update_view' position.pk %}">Редактировать</a>
+                    <a href="{% url 'countries_delete_view' position.pk %}">Удалить</a>
+                </div>
+            </li>
+        {% empty %}
+            <li style="color: #fefefe; font-size: 1.2em;">Пока нет добавленных позиций.</li>
+        {% endfor %}
+    </ul>
+      {% block footer %}
+     {% endblock %}
+      {% else %}
+        <h1>Это страницы админа</h1>
+    {% endif %}
+{% endblock %}

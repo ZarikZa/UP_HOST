@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+Как нас найти
+{% endblock %}
+
+{% block content %}
+
+<div class="location-section">
+  <h2>Как нас найти</h2>
+  <p><strong>Адрес:</strong> г. Москва, ул. Примерная, д. 123</p>
+  <p><strong>Ориентир:</strong> рядом с метро «Тестовая», выход №2</p>
+  <p><strong>Режим работы:</strong> ежедневно с 10:00 до 20:00</p>
+  <p><strong>Телефон:</strong> +7 (495) 000-00-00</p>
+
+  <div class="location-map">
+    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A87e6b8e3b7f1234567890abcdefabcdef1234567890abcdefabcdef&amp;source=constructor" allowfullscreen></iframe>
+  </div>
+</div>
+{% endblock %}

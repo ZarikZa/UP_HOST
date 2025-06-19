@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+Все товары
+{% endblock %}
+
+{% block content %}
+  <h2 class="mb-4">Каталог товаров</h2>
+    <a href="{% url 'products_view' %}" class="btn-clear-filters">Очистить фильтры</a>
+    <br>
+    <br>
+  <div class="product-cards">
+    {% for item in productss %}
+        <div class="product-card">
+        <a href="{% url 'product_detail_view' item.pk %}">
+            {% if item.photo %}
+               <img src="{{ item.photo.url }}" alt="{{ item.name }}" class="category-image">
+           {% else %}
+               <div class="category-image" style="background-color: #fcf8ed20; display: flex; align-items: center; justify-content: center;">
+                   <span>Нет изображения</span>
+               </div>
+           {% endif %}
+        </a>
+          <div class="product-card-body">
+            <h3>{{ item.name }}</h3>
+            <div class="product-description">{{ item.disctiption }}</div>
+            <div class="product-price">{{ item.price }} ₽</div>
+            {% if request.user.is_authenticated %}
+                <form method="post" action="{% url 'basket_add' item.pk %}" class="mt-4">
+                  {% csrf_token %}
+                  {{ form_basket }}
+                  <button type="submit" class="btn-buy">Добавить в корзину</button>
+                </form>
+            {% else %}
+                <p class="mt-4"><a href="{% url 'login_user' %}?next={{ request.path }}" class="btn-main">Войдите, чтобы добавить в корзину</a></p>
+            {% endif %}
+          </div>
+        </div>
+    {% empty %}
+      <div class="no-products-container mb-4">
+        <p class="no-products-message">Нет товаров в этой категории.</p>
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}

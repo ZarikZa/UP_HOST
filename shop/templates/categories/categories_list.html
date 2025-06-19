@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+Категории
+{% endblock %}
+
+{% block style %}
+    {% include '_inc/styles_list.html' %}
+{% endblock %}
+  {% block header %}
+      {% include '_inc/_header_list.html' %}
+  {% endblock %}
+{% block content %}
+{% if user.is_authenticated and user.is_staff %}
+    <h1>Категории</h1>
+
+    <div style="text-align: center;">
+        <a class="add-btn" href="{% url 'categories_create_view' %}">Добавить новую категорию</a>
+    </div>
+
+    <ul class="clothes-list">
+        {% for position in categories %}
+            <li class="clothes-item">
+                {% if position.photo %}
+                    <img src="{{ position.photo.url }}" alt="{{ position.name }}" class="category-image">
+                {% else %}
+                    <div class="category-image" style="background-color: #fcf8ed20; display: flex; align-items: center; justify-content: center;">
+                        <span>Нет изображения</span>
+                    </div>
+                {% endif %}
+                <div class="clothes-item-title">{{ position.name }}</div>
+                <div class="actions">
+                    <a href="{% url 'categories_detail_view' position.pk %}">Подробнее</a>
+                    <a href="{% url 'categories_update_view' position.pk %}">Редактировать</a>
+                    <a href="{% url 'categories_delete_view' position.pk %}">Удалить</a>
+                </div>
+            </li>
+        {% empty %}
+            <li style="color: #fefefe; font-size: 1.2em;">Пока нет добавленных позиций.</li>
+        {% endfor %}
+    </ul>
+    {% block footer %}
+     {% endblock %}
+      {% else %}
+        <h1>Это страницы админа</h1>
+    {% endif %}
+{% endblock %}
