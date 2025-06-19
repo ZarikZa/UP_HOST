@@ -31,34 +31,6 @@ class CategoryListViewMain(ListView):
 def cart_view(request):
     return render(request, 'basket/basket_detail.html')
 
-class ClothesListView(ListView):
-    model = Clothes
-    template_name = 'clothes/clothes_list.html'
-    context_object_name = 'clothes'
-
-class ClothesDetailView(DetailView):
-    model = Clothes
-    template_name = 'clothes/clothes_detail.html'
-    context_object_name = 'clothes'
-
-class ClothesCreateView(CreateView):
-    model = Clothes
-    form_class = ClothesForm
-    template_name = 'clothes/clothes_form.html'
-    success_url = reverse_lazy('clothes_list_view')
-
-class ClothesUpdateView(UpdateView):
-    model = Clothes
-    form_class = ClothesForm
-    template_name = 'clothes/clothes_form.html'
-    success_url = reverse_lazy('clothes_list_view')
-
-class ClothesDeleteView(DeleteView):
-    model = Clothes
-    context_object_name = 'clothes'
-    template_name = 'clothes/clothes_confirm.html'
-    success_url = reverse_lazy('clothes_list_view')
-
 #
 #Brand
 #

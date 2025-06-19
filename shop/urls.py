@@ -19,13 +19,6 @@ urlpatterns = [
     path('registration/', registration_user, name='registration_user'),
     path('logout/', logout_user, name='logout_user'),
 
-    path('clothes/', ClothesListView.as_view(), name='clothes_list_view'),
-    path('clothes/<int:pk>/', ClothesDetailView.as_view(), name='clothes_detail_view'),
-    path('clothes/create/', ClothesCreateView.as_view(), name='clothes_create_view'),
-    path('clothes/<int:pk>/update/', ClothesUpdateView.as_view(), name='clothes_update_view'),
-    path('clothes/<int:pk>/delete/', ClothesDeleteView.as_view(), name='clothes_delete_view'),
-
-
     path('brands/', BrandListView.as_view(), name='brands_list_view'),
     path('brands/<int:pk>/', BrandDetailView.as_view(), name='brands_detail_view'),
     path('brands/create/', BrandCreateView.as_view(), name='brands_create_view'),

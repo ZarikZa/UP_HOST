@@ -38,12 +38,6 @@ class LoginForm(AuthenticationForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
     )
 
-class ClothesForm(forms.ModelForm):
-    class Meta:
-        model = Clothes
-        fields = ['name', 'disctiption', 'price', 'size', 'color', 'photo', 'is_exists', 'category', 'collection']
-
-
 class ProductsForm(forms.ModelForm):
     class Meta:
         model = Products
