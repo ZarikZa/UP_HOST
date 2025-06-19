@@ -5,14 +5,6 @@ from .models import *
 class CategoryAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Collection)
-class CollectionAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(Clothes)
-class ClothesAdmin(admin.ModelAdmin):
-    pass
-
 @admin.register(CountryProivodstva)
 class CountryProivodstvaAdmin(admin.ModelAdmin):
     pass
